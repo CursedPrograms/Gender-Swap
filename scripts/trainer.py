@@ -140,4 +140,4 @@ if __name__ == '__main__':
     # Parse command line arguments
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--batchSize', type=int, default=1, help='Batch Size to be used for training')
-    parser.add_argument('--epochs', type=int, default=40, help='Number of epochs that training
+    parser.add_argument('--epochs', type=int, default=40, help='Number of epochs')
