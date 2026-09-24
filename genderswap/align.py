@@ -5,7 +5,15 @@ import numpy as np
 
 class FaceAligner:
     def __init__(self, yunet_path, score_threshold=0.7):
-        self.detector = cv2.FaceDetectorYN.create(yunet_path, '', (320, 320), score_threshold, 0.3, 5000)
+        # OpenCV 5's new DNN engine warns that it can't set the (default, CPU) target
+        # YuNet asks for; it runs on the CPU either way, so hide just that warning.
+        log = cv2.utils.logging
+        level = log.getLogLevel()
+        log.setLogLevel(log.LOG_LEVEL_ERROR)
+        try:
+            self.detector = cv2.FaceDetectorYN.create(yunet_path, '', (320, 320), score_threshold, 0.3, 5000)
+        finally:
+            log.setLogLevel(level)
 
     def detect(self, image):
         """Return five landmarks (eye_l, eye_r, nose, mouth_l, mouth_r) of the largest face, or None.

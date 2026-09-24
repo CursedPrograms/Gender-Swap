@@ -36,10 +36,14 @@ python main.py photo.jpg --to female --strength 1.3 --quality best -o out.png
 
 | Option | Meaning |
 | --- | --- |
-| `--to auto\|female\|male` | Target gender. `auto` flips whatever is detected. |
+| `--to auto\|female\|male` | Target gender. `auto` (the default) flips whatever is detected. |
 | `--strength` | How far to push the edit (1.0 = full swap). |
 | `--quality fast\|balanced\|best` | `fast` = encoder only (a few seconds); `balanced`/`best` fine-tune on your face for 100/250 steps (~1 / ~3 min on a GTX 1050 Ti). |
 | `--save-crops` | Also save the aligned input, reconstruction and edit side by side. |
+
+In the web UI you don't have to pick a direction: when you upload a photo, a gender classifier
+(FairFace) checks the face and selects the opposite, e.g. "Detected **male** (99%), so **to female** is
+selected". You can still change it to *To female*, *To male* or *Auto* before pressing Swap.
 
 ## Licenses
 

@@ -69,12 +69,25 @@ def build_ui(swapper):
             raise gr.Error(str(e))
         return result.image, result.edited, f'Detected {result.detected}, swapped to {result.target}.'
 
+    def detect(image):
+        """On upload: detect the gender and preselect the opposite direction (still changeable)."""
+        if image is None:
+            return gr.update(value='Auto'), ''
+        try:
+            gender, confidence = swapper.detect_gender(image)
+        except ValueError as e:
+            return gr.update(value='Auto'), f'{e}'
+        choice = 'To female' if gender == 'male' else 'To male'
+        return gr.update(value=choice), f'Detected **{gender}** ({confidence:.0%}), so **{choice.lower()}** is selected. Change it above if that is wrong.'
+
     with gr.Blocks(title='Gender Swap') as demo:
         gr.Markdown('# Gender Swap\nUpload a photo with a clearly visible face.')
         with gr.Row():
             with gr.Column():
                 inp = gr.Image(label='Photo', type='numpy')
-                direction = gr.Radio(['Auto', 'To female', 'To male'], value='Auto', label='Swap')
+                direction = gr.Radio(['Auto', 'To female', 'To male'], value='Auto', label='Swap',
+                                     info='Set automatically from the detected gender when you upload a photo.')
+                detected = gr.Markdown()
                 strength = gr.Slider(0.25, 2.0, value=1.0, step=0.05, label='Strength')
                 quality = gr.Radio(['Fast', 'Balanced', 'Best'], value='Balanced', label='Quality',
                                    info='Balanced and Best fine-tune the model on your face so it still looks like you.')
@@ -83,6 +96,7 @@ def build_ui(swapper):
                 out = gr.Image(label='Result', format='png')
                 face = gr.Image(label='Face close-up', format='png')
                 status = gr.Markdown()
+        inp.change(detect, inp, [direction, detected], api_name='detect')
         btn.click(swap, [inp, direction, strength, quality], [out, face, status], api_name='swap')
 
     return demo

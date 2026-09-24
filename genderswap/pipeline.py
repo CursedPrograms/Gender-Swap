@@ -113,12 +113,21 @@ class GenderSwapper:
 
         gen.requires_grad_(False)
 
-    def swap(self, image, target='auto', strength=1.0, tune_steps=0, progress=None):
-        """Gender-swap the largest face in `image` (RGB uint8). `target` is 'auto', 'male' or 'female'."""
+    def _align(self, image):
         landmarks = self.aligner.detect(image)
         if landmarks is None:
             raise ValueError('No face found in the image.')
-        aligned, matrix = self.aligner.align(image, landmarks, 1024)
+        return self.aligner.align(image, landmarks, 1024)
+
+    def detect_gender(self, image):
+        """('male' | 'female', confidence) for the largest face in `image` (RGB uint8).
+        Only detection and the classifier run, so it is quick enough to call on upload."""
+        aligned, _ = self._align(image)
+        return self.classifier(aligned)
+
+    def swap(self, image, target='auto', strength=1.0, tune_steps=0, progress=None):
+        """Gender-swap the largest face in `image` (RGB uint8). `target` is 'auto', 'male' or 'female'."""
+        aligned, matrix = self._align(image)
 
         w = self.invert(aligned)
         detected, _ = self.classifier(aligned)
