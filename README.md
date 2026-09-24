@@ -1,10 +1,5 @@
 # Gender-Swap
 
-<a href="https://cursed-entertainment.itch.io/" target="_blank">
-    <img src="https://github.com/CursedPrograms/cursedentertainment/raw/main/images/logos/logo-wide-grey.png"
-        alt="CursedEntertainment Logo">
-</a>
-
 FaceApp-style gender swap for photos. FaceApp's own model is proprietary, so this uses the
 open-source approach that gives the same kind of result: a StyleGAN2 face generator edited in latent space.
 
@@ -50,3 +45,23 @@ python main.py photo.jpg --to female --strength 1.3 --quality best -o out.png
 
 The code here is MIT-derived (e4e, rosinality/stylegan2-pytorch). The pretrained StyleGAN2 FFHQ
 weights are under NVIDIA's non-commercial license, so this is for personal/research use.
+
+---
+
+<br>
+<div align="center">
+© Cursed Entertainment 2026
+</div>
+<br>
+<div align="center">
+<a href="https://cursed-entertainment.itch.io/" target="_blank">
+    <img src="https://github.com/CursedPrograms/cursedentertainment/raw/main/images/logos/logo-wide-grey.png"
+        alt="CursedEntertainment Logo" style="width:250px;">
+</a>
+</div>
+<br>
+<div align="center">
+  <a href="https://github.com/SynthWomb" target="_blank">
+    <img src="https://github.com/SynthWomb/synth.womb/blob/main/logos/synthwomb07.png" alt="SynthWomb" style="width:200px;"/>
+  </a>
+</div>
