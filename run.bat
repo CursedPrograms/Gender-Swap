@@ -39,11 +39,15 @@ rem 3) Download any missing models.
 
 rem 4) Run. With no arguments this opens the web UI.
 "%VENV_PY%" main.py %*
+set "EXIT_CODE=%ERRORLEVEL%"
 goto :end
 
 :error
 echo.
 echo Setup failed, see the messages above.
+pause
+exit /b 1
 
 :end
 pause
+exit /b %EXIT_CODE%
