@@ -1,5 +1,17 @@
 # Gender-Swap
 
+<br>
+<p align="center">
+  <img src="assets/example_f_m.png" alt="example_f_m.png" width="300">
+</p>
+<br>
+
+<br>
+<p align="center">
+  <img src="assets/example_m_f.png" alt="example_m_f" width="300">
+</p>
+<br>
+
 FaceApp-style gender swap for photos. FaceApp's own model is proprietary, so this uses the
 open-source approach that gives the same kind of result: a StyleGAN2 face generator edited in latent space.
 
